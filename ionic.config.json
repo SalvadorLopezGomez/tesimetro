@@ -1,0 +1,7 @@
+{
+  "name": "tesimetro",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "vue"
+}
