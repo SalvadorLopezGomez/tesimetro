@@ -9,16 +9,19 @@
       <div id="Resultado">
         <ion-label><h1 id="letra_1">¿Cómo vas con tu tesis?</h1></ion-label>
       </div>
-      <div id="result">
-        <ion-img src="../assets/logo.png"></ion-img>
+      <div id="container">
+        <div id="result">
+        <div>
+          <ion-img id="image" src="../assets/logo.png"></ion-img>
         <br>
         <ion-label>
           <h1 id="letra">
-            App creada por Impúlsate Consultoría  2021.
+            App creada por Impúlsate Consultoría®  2021.
           </h1>
         </ion-label>
+        </div>
+       </div>
       </div>
-
       <div id="boton">
         <ion-button shape="round" color="warning" @click="$router.push('/opciones')">Volver</ion-button>
       </div>
@@ -61,11 +64,16 @@ export default defineComponent({
 #result {
   text-align: center;
   position: absolute;
-  left: 5%;
-  right: 5%;
+  left: 0;
+  right: 0;
   top: 40%;
   margin: 40px;
   transform: translateY(-50%);
+}
+
+#image {
+  width: 200px;
+  margin: auto;
 }
 
 #boton {
@@ -88,11 +96,10 @@ export default defineComponent({
 
 #container {
   text-align: center;
-  
   position: absolute;
   left: 5%;
   right: 5%;
-  top: 50%;
+  top: 40%;
   transform: translateY(-50%);
 }
 
@@ -126,6 +133,8 @@ ion-content.background{
 
 ion-button{
   border: 2px solid #00A79D;
-  border-radius: 16px;
+  border-radius: 20px;
+  height: 45px;
+  text-transform: inherit;
 }
 </style>

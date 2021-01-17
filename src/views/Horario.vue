@@ -11,7 +11,7 @@
       </div>
       <ion-label id="text-horas">Horas</ion-label>
       <div id="container">
-          <li id="lista" v-for="tema in themes" :key="tema">
+          <p id="lista" v-for="tema in themes" :key="tema">
               <ion-label>
                   <div id="label-text">
                       <h3 id="letra_1">{{tema.task}}</h3>
@@ -20,8 +20,11 @@
                       <h3 id="horas">{{tema.hours}}</h3>
                   </div>
               </ion-label>
-          </li>
-          <ion-button id="boton" shape="round" color="warning" @click="$router.push('/nota')">Continuar</ion-button>
+              <br>
+          </p>
+          <div id="boton">
+            <ion-button shape="round" color="warning" @click="$router.push('/nota')">Continuar</ion-button>
+          </div>
       </div>
       
       <ion-label id="altura">Total</ion-label>
@@ -48,19 +51,20 @@ export default defineComponent({
   data(){
     return {
         themes: [
-            { task: "Resumen",            hours: "5",   pending: true },
-            { task: "Introducción",       hours: "5",   pending: true },
-            { task: "Problema",           hours: "15",  pending: true },
-            { task: "Justificación",      hours: "7",   pending: true },
-            { task: "Antecedentes",       hours: "10",  pending: true },
-            { task: "Marco teórico",      hours: "20",  pending: true },
-            { task: "Metodología",        hours: "25",  pending: true },
-            { task: "Resultados",         hours: "15",  pending: true },
-            { task: "Discusión",          hours: "8",   pending: true },
-            { task: "Conclusiones",       hours: "10",  pending: true },
-            { task: "Recomendaciones",    hours: "6",   pending: true },
-            { task: "Referencias",        hours: "4",   pending: true },
-            { task: "Formato con normas", hours: "8",   pending: true }
+            { task: "Conformación del grupo", hours: "5",   done: false, msg: "No", color: 'medium' },
+            { task: "Resumen",                hours: "5",   pending: true },
+            { task: "Introducción",           hours: "5",   pending: true },
+            { task: "Problema",               hours: "15",  pending: true },
+            { task: "Justificación",          hours: "7",   pending: true },
+            { task: "Antecedentes",           hours: "10",  pending: true },
+            { task: "Marco teórico",          hours: "20",  pending: true },
+            { task: "Metodología",            hours: "25",  pending: true },
+            { task: "Resultados",             hours: "15",  pending: true },
+            { task: "Discusión",              hours: "8",   pending: true },
+            { task: "Conclusiones",           hours: "10",  pending: true },
+            { task: "Recomendaciones",        hours: "6",   pending: true },
+            { task: "Referencias",            hours: "4",   pending: true },
+            { task: "Formato con normas",     hours: "8",   pending: true }
         ],
         total: 138,
         horas_totales: 0,
@@ -86,7 +90,7 @@ export default defineComponent({
   position: absolute;
   left: 0;
   right: 0;
-  top: 28%;
+  top: 32%;
   margin: 60px;
   transform: translateY(-50%);
 }
@@ -137,10 +141,11 @@ export default defineComponent({
 }
 
 #boton {
+  text-align: center;
   position: absolute;
-  top: 130%;
-  right: 20%;
-  left: 20%;
+  top: 120%;
+  right: 0;
+  left: 0;
   transform: translateY(-50%);
 }
 
@@ -211,6 +216,8 @@ ion-content.background{
 
 ion-button{
   border: 2px solid #00A79D;
-  border-radius: 16px;
+  height: 45px;
+  border-radius: 20px;
+  text-transform: inherit;
 }
 </style>

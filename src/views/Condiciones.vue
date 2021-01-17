@@ -13,7 +13,7 @@
       <div id="result">
         <ion-label>
           <h2 id="letra">
-            Esta aplicación fue creada por la empresa Impúlsate Consultoría.
+            Esta aplicación fue creada por la empresa Impúlsate Consultoría®.
           </h2>
           <br>
           <br>
@@ -135,6 +135,8 @@ ion-content.background{
 
 ion-button{
   border: 2px solid #00A79D;
-  border-radius: 16px;
+  border-radius: 20px;
+  height: 45px;
+  text-transform: inherit;
 }
 </style>

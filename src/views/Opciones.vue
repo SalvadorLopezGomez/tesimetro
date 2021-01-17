@@ -8,13 +8,13 @@
       </ion-header>
     
       <div id="container">
-        <ion-button shape="round" color="warning" expand="full" @click="$router.push('/tiempo')">Tesímetro</ion-button>
+        <ion-button shape="round" color="warning" @click="$router.push('/tiempo')">Tesímetro</ion-button>
         <br>
-        <ion-button shape="round" color="warning" expand="full" @click="$router.push('/condiciones')">Condiciones y privacidad</ion-button>
+        <ion-button shape="round" color="warning" @click="$router.push('/condiciones')">Condiciones y privacidad</ion-button>
         <br>
-        <ion-button shape="round" color="warning" expand="full" @click="$router.push('/firma')">Información de la app</ion-button>
+        <ion-button shape="round" color="warning" @click="$router.push('/firma')">Información de la app</ion-button>
         <br>
-        <ion-button shape="round" color="warning" expand="full" @click="$router.push('/publicidad')">Publicidad</ion-button>
+        <ion-button shape="round" color="warning" @click="$router.push('/publicidad')">Publicidad</ion-button>
       </div>
     </ion-content>
   </ion-page>
@@ -39,7 +39,6 @@ export default defineComponent({
 <style scoped>
 #container {
   text-align: center;
-  
   position: absolute;
   left: 5%;
   right: 5%;
@@ -74,6 +73,9 @@ ion-content.background{
 
 ion-button{
   border: 2px solid #00A79D;
-  border-radius: 16px;
+  border-radius: 20px;
+  height: 45px;
+  text-transform: inherit;
+  width : 210px;
 }
 </style>
