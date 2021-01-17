@@ -7,33 +7,32 @@
         </ion-toolbar>
       </ion-header>
       <div id="text-question">
-        <ion-label><h1 id="letra">¿Cuánto tiempo te falta para terminar tu tesis?</h1></ion-label>
+        <ion-label><h1 id="letra">Destinación horaria</h1></ion-label>
       </div>
-      <div id="tipo-investigacion">
-        <ion-input placeholder="Tipo de Investigación"></ion-input>
-      </div>
-
-
+      <ion-label id="text-horas">Horas</ion-label>
       <div id="container">
-        <li id="lista" v-for="tema in themes" :key="tema">
-          <ion-label>
-            <div id="label-text">
-              <h3 id="letra_1">{{tema.task}}</h3>
-            </div>
-            <div>
-              <ion-button id="boton" color="medium" shape="round" size="small"><h3>NO</h3></ion-button>
-            </div>
-          </ion-label>
-        </li>
+          <li id="lista" v-for="tema in themes" :key="tema">
+              <ion-label>
+                  <div id="label-text">
+                      <h3 id="letra_1">{{tema.task}}</h3>
+                  </div>
+                  <div>
+                      <h3 id="horas">{{tema.hours}}</h3>
+                  </div>
+              </ion-label>
+          </li>
+          <ion-button id="boton" shape="round" color="warning" @click="$router.push('/nota')">Continuar</ion-button>
       </div>
+      
+      <ion-label id="altura">Total</ion-label>
+      <ion-label  id="altura_1">{{horas_totales}}</ion-label>
 
-      <ion-button id="calcular_boton" shape="round" color="warning" @click="$router.push('/resultado')">Calcular</ion-button>
     </ion-content>
   </ion-page>
 </template>
 
 <script>
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/vue';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonLabel } from '@ionic/vue';
 import { defineComponent } from 'vue';
 
 export default defineComponent({
@@ -43,11 +42,12 @@ export default defineComponent({
     IonHeader,
     IonPage,
     IonTitle,
-    IonToolbar
+    IonToolbar,
+    IonLabel
   },
   data(){
     return {
-      themes: [
+        themes: [
             { task: "Resumen",            hours: "5",   pending: true },
             { task: "Introducción",       hours: "5",   pending: true },
             { task: "Problema",           hours: "15",  pending: true },
@@ -62,7 +62,20 @@ export default defineComponent({
             { task: "Referencias",        hours: "4",   pending: true },
             { task: "Formato con normas", hours: "8",   pending: true }
         ],
+        total: 138,
+        horas_totales: 0,
     }
+  },
+  methods: {
+      calcular(){
+          this.horas_totales = 0;
+          for (let i = 0; i < this.themes.length; i++) {
+              console.log(this.themes[i].hours);
+              this.horas_totales = this.horas_totales + parseInt(this.themes[i].hours);
+          }
+          console.log(this.horas_totales);
+          document.getElementById("altura_1").innerHTML = this.horas_totales.toString();
+      }
   }
 });
 </script>
@@ -73,23 +86,49 @@ export default defineComponent({
   position: absolute;
   left: 0;
   right: 0;
-  top: 35%;
+  top: 28%;
   margin: 60px;
   transform: translateY(-50%);
 }
 
-#label-text {
-  text-align: left;
-  color:black;
+#lista {
+    margin: 5px;
+}
+
+#altura {
+    color: black;
+    font-weight: bold;
+    position: absolute;
+    left: 60%;
+    top: 67%;
+}
+
+#altura_1 {
+    color: black;
+    font-weight: bold;
+    position: absolute;
+    left: 78%;
+    top: 67%;
+}
+
+#text-horas {
+  color: black;
+  font-weight: bold;
+  top: 11%;
+  right: 17%;
   position: absolute;
   transform: translateY(-50%);
 }
 
-#lista {
-    margin: 10px;
+#label-text {
+  position: absolute;
+  left: 0;
+  transform: translateY(-50%);
 }
 
-#boton {
+#horas {
+  color: black;
+  border-radius: 20%;
   text-align: right;
   position: absolute;
   font-weight: bold;
@@ -97,9 +136,9 @@ export default defineComponent({
   transform: translateY(-50%);
 }
 
-#calcular_boton {
+#boton {
   position: absolute;
-  top: 80%;
+  top: 130%;
   right: 20%;
   left: 20%;
   transform: translateY(-50%);
@@ -114,22 +153,12 @@ export default defineComponent({
   transform: translateY(-50%);
 }
 
-#button-boolean {
-  margin: 0 auto;
-  text-align: right;
-  position: absolute;
-  left: 75%;
-  right: 10%;
-  top: 56.5%;
-  transform: translateY(-50%);
-}
-
 #tipo-investigacion {
   text-align: left;
   position: absolute;
-  left: 19%;
+  left: 5%;
   right: 30%;
-  top: 13%;
+  top: 18%;
   transform: translateY(-50%);
 }
 
@@ -139,16 +168,19 @@ export default defineComponent({
 }
 
 ion-input {
-  font-size: 10px;
-  --background: white;
   --color: black;
-  border: 3px solid#00A79D;
-  border-radius: 10px;
+}
+
+#total {
+  left: 25%;
+  right: 0;
+  color: #00A79D;
+  font-weight: bold;
 }
 
 #letra {
-  font-weight: bold;
   color: #00A79D;
+  font-weight: bold;
 }
 
 #letra_1 {
@@ -157,15 +189,13 @@ ion-input {
   color: black;
 }
 
-#boton {
-  text-align: right;
-  position: absolute;
-  font-weight: bold;
-  right: 0;
-  transform: translateY(-50%);
+#label-text p {
+  font-size: 16px;
+  line-height: 22px;
+  margin: 12px;
 }
 
-#label-text p {
+#button-boolean p {
   font-size: 16px;
   line-height: 22px;
   margin: 12px;

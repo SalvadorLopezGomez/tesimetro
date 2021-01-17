@@ -2,6 +2,12 @@ import { createRouter, createWebHistory } from '@ionic/vue-router';
 import Home from '../views/Home.vue';
 import Opciones from '../views/Opciones.vue';
 import Tiempo from '../views/Tiempo.vue';
+import Resultado from '../views/Resultado.vue';
+import Horario from '../views/Horario.vue';
+import Nota from '../views/Nota.vue';
+import Condiciones from '../views/Condiciones.vue';
+import Firma from '../views/Firma.vue';
+import Publicidad from '../views/Publicidad.vue';
 
 const routes = [
   {
@@ -22,6 +28,36 @@ const routes = [
     path: '/tiempo',
     name: 'Tiempo',
     component: Tiempo
+  },
+  {
+    path: '/resultado',
+    name: 'Resultado',
+    component: Resultado
+  },
+  {
+    path: '/horario',
+    name: 'Horario',
+    component: Horario
+  },
+  {
+    path: '/nota',
+    name: 'Nota',
+    component: Nota
+  },
+  {
+    path: '/condiciones',
+    name: 'Condiciones',
+    component: Condiciones
+  },
+  {
+    path: '/firma',
+    name: 'Firma',
+    component: Firma
+  },
+  {
+    path: '/publicidad',
+    name: 'Publicidad',
+    component: Publicidad
   }
 ]
 

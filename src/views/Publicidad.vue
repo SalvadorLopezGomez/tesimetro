@@ -6,15 +6,20 @@
           <ion-title size="large">Blank</ion-title>
         </ion-toolbar>
       </ion-header>
-    
-      <div id="container">
-        <ion-button shape="round" color="warning" expand="full" @click="$router.push('/tiempo')">Tesímetro</ion-button>
+      <div id="Resultado">
+        <ion-label><h1 id="letra_1">Publicidad</h1></ion-label>
+      </div>
+      <div id="result">
         <br>
-        <ion-button shape="round" color="warning" expand="full" @click="$router.push('/condiciones')">Condiciones y privacidad</ion-button>
-        <br>
-        <ion-button shape="round" color="warning" expand="full" @click="$router.push('/firma')">Información de la app</ion-button>
-        <br>
-        <ion-button shape="round" color="warning" expand="full" @click="$router.push('/publicidad')">Publicidad</ion-button>
+        <ion-label>
+          <h2 id="letra">
+            Queremos mejorar para ti, por esto agradecemos que nos apoyes visualizando la publicidad que tenemos en la aplicación.
+          </h2>
+        </ion-label>
+      </div>
+
+      <div id="boton">
+        <ion-button shape="round" color="warning" @click="$router.push('/opciones')">Volver</ion-button>
       </div>
     </ion-content>
   </ion-page>
@@ -25,25 +30,68 @@ import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/vue
 import { defineComponent } from 'vue';
 
 export default defineComponent({
-  name: 'Opciones',
+  name: 'Resultado',
   components: {
     IonContent,
     IonHeader,
     IonPage,
     IonTitle,
     IonToolbar
+  },
+  data(){
+    return {
+      
+    }
   }
 });
 </script>
 
 <style scoped>
+
+#Resultado {
+  text-align: center;
+  position: absolute;
+  left: 5%;
+  right: 5%;
+  top: 10%;
+  transform: translateY(-50%);
+}
+
+#result {
+  text-align: center;
+  position: absolute;
+  left: 5%;
+  right: 5%;
+  top: 30%;
+  margin: 40px;
+  transform: translateY(-50%);
+}
+
+#boton {
+  position: absolute;
+  left: 30%;
+  right: 30%;
+  top: 70%;
+  text-align: center;
+  transform: translateY(-50%);
+}
+
+#letra {
+  color: black;
+}
+
+#letra_1 {
+    color: #00A79D;
+    font-weight: bold;
+}
+
 #container {
   text-align: center;
   
   position: absolute;
   left: 5%;
   right: 5%;
-  top: 50%;
+  top: 40%;
   transform: translateY(-50%);
 }
 
@@ -70,6 +118,9 @@ ion-content.background{
 }
 .bg-transparent {
   opacity: 0.6;
+}
+.a {
+    color: #00A79D;
 }
 
 ion-button{

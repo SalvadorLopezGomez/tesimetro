@@ -1,26 +1,32 @@
 <template>
   <ion-page>
-    <ion-header :translucent="true">
-      <ion-toolbar>
-        <ion-title>¿Cómo vas con tu tesis?</ion-title>
-      </ion-toolbar>
-    </ion-header>
-    
     <ion-content :fullscreen="true" padding class="background">
       <ion-header collapse="condense">
         <ion-toolbar>
           <ion-title size="large">Blank</ion-title>
         </ion-toolbar>
       </ion-header>
-    
-      <div id="container">
-        <ion-input placeholder="País"></ion-input><br>
-        <ion-input placeholder="Género"></ion-input><br>
-        <ion-input placeholder="Nivel Educativo"></ion-input><br>
-        <ion-input placeholder="Área de conocimiento"></ion-input><br>
+      <div id="Resultado">
+        <ion-label><h1 id="letra_1">Condiciones y privacidad</h1></ion-label>
       </div>
+
+      <div id="result">
+        <ion-label>
+          <h2 id="letra">
+            Esta aplicación fue creada por la empresa Impúlsate Consultoría.
+          </h2>
+          <br>
+          <br>
+          <h2 id="letra">
+            Haciendo click puedes informarte sobre las 
+            <route-link url=""><a href="">condiciones de uso</a></route-link> y 
+            <route-link><a href="">política de privacidad</a></route-link>.
+          </h2>
+        </ion-label>
+      </div>
+
       <div id="boton">
-        <ion-button shape="round" color="warning" @click="$router.push('/opciones')">Entrar</ion-button>
+        <ion-button shape="round" color="warning" @click="$router.push('/opciones')">Volver</ion-button>
       </div>
     </ion-content>
   </ion-page>
@@ -31,7 +37,7 @@ import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/vue
 import { defineComponent } from 'vue';
 
 export default defineComponent({
-  name: 'Home',
+  name: 'Resultado',
   components: {
     IonContent,
     IonHeader,
@@ -50,23 +56,52 @@ export default defineComponent({
 </script>
 
 <style scoped>
-#container {
-  text-align: left;
-  margin: 40px;
+
+#Resultado {
+  text-align: center;
   position: absolute;
-  left: 0;
-  right: 0;
-  top: 40%;
+  left: 5%;
+  right: 5%;
+  top: 10%;
+  transform: translateY(-50%);
+}
+
+#result {
+  text-align: center;
+  position: absolute;
+  left: 5%;
+  right: 5%;
+  top: 30%;
+  margin: 40px;
   transform: translateY(-50%);
 }
 
 #boton {
-  text-align: center;
-  margin: 40px;
   position: absolute;
-  left: 0;
-  right: 0;
-  top: 63%;
+  left: 30%;
+  right: 30%;
+  top: 70%;
+  text-align: center;
+  transform: translateY(-50%);
+}
+
+#letra {
+  color: black;
+  font-weight: bold;
+}
+
+#letra_1 {
+    color: #00A79D;
+    font-weight: bold;
+}
+
+#container {
+  text-align: center;
+  
+  position: absolute;
+  left: 5%;
+  right: 5%;
+  top: 50%;
   transform: translateY(-50%);
 }
 
@@ -92,15 +127,10 @@ ion-content.background{
     --background: url(../../imagenes/fondo.jpeg) 0 0/100% 100% no-repeat;
 }
 .bg-transparent {
-  opacity: 0.4;
-  border-radius: 5%;
+  opacity: 0.6;
 }
-
-ion-input {
-  --background: white;
-  --color: black;
-  border: 3px solid#00A79D;
-  border-radius: 10px;
+.a {
+    color: #00A79D;
 }
 
 ion-button{
