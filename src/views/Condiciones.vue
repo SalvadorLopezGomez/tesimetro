@@ -134,7 +134,6 @@ ion-content.background{
 }
 
 ion-button{
-  border: 2px solid #00A79D;
   border-radius: 20px;
   height: 45px;
   text-transform: inherit;

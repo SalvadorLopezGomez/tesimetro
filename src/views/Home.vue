@@ -14,25 +14,31 @@
       </ion-header>
     
       <div id="container">
-        <ion-input placeholder="País"></ion-input><br>
         <ion-item slot="primary">
-          <ion-select :interface-options="options" interface="alert" placeholder="Género">
+          <ion-select :interface-options="options" v-model="pais" interface="alert" placeholder="Pais">
             <ion-item id="background-select">
-              <ion-select-option :key="sex" v-for="sex of genero" :value="sex.id">{{sex.sexo}}</ion-select-option>
+              <ion-select-option :key="pais" v-for="pais of paises" :value="pais.alpha2Code">{{pais.name}}</ion-select-option>
             </ion-item>
           </ion-select>
         </ion-item><br>
         <ion-item slot="primary">
-          <ion-select :interface-options="options" interface="alert" placeholder="Nivel educativo">
+          <ion-select :interface-options="options" v-model="sexoMF" interface="alert" placeholder="Género">
             <ion-item id="background-select">
-              <ion-select-option :key="escolaridad" v-for="escolaridad of educacion" :value="escolaridad.id">{{escolaridad.nivel}}</ion-select-option>
+              <ion-select-option :key="sex" v-for="sex of genero" :value="sex.sexo">{{sex.sexo}}</ion-select-option>
             </ion-item>
           </ion-select>
         </ion-item><br>
-        <ion-input placeholder="Área de conocimiento"></ion-input><br>
+        <ion-item slot="primary">
+          <ion-select :interface-options="options" v-model="level" interface="alert" placeholder="Nivel educativo">
+            <ion-item id="background-select">
+              <ion-select-option :key="escolaridad" v-for="escolaridad of educacion" :value="escolaridad.nivel">{{escolaridad.nivel}}</ion-select-option>
+            </ion-item>
+          </ion-select>
+        </ion-item><br>
+        <ion-input id="tema" v-model="tema" placeholder="Área de conocimiento"></ion-input><br>
       </div>
       <div id="boton">
-        <ion-button shape="round" color="warning" @click="$router.push('/opciones')">Entrar</ion-button>
+        <ion-button shape="round" color="warning" @click="passData()">Entrar</ion-button>
       </div>
     </ion-content>
   </ion-page>
@@ -41,6 +47,8 @@
 <script>
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonSelect, IonSelectOption } from '@ionic/vue';
 import { defineComponent } from 'vue';
+import axios from 'axios';
+import { environment } from '../services/data';
 
 export default defineComponent({
   name: 'Home',
@@ -53,21 +61,41 @@ export default defineComponent({
     IonSelect, 
     IonSelectOption
   },
+  async beforeMount(){
+    await axios.get("https://restcountries.eu/rest/v2/lang/es").then(resp =>{ this.paises=resp.data })
+  },
   data(){
     return {
-      dataForm : {
-        pais:""
-      },
+      pais: '',
+      sexoMF: '',
+      level: '',
+      tema: '',
 
+      paises: [],
       genero: [ {id: 1, sexo: "Masculino"}, {id: 2, sexo: "Femenino"} ],
       educacion: [ 
         {id: 1, nivel: "Investigación escolar" },
         {id: 2, nivel: "Técnica - Tecnología" },
-        {id: 3, nivel: "Pregrado" },
+        {id: 3, nivel: "Pregrado - Licenciatura" },
         {id: 4, nivel: "Especialización" },
         {id: 5, nivel: "Maestría" },
         {id: 6, nivel: "Doctorado" },
       ],
+    }
+  },
+  methods: {
+    passData() {
+      console.log("Pais: ", this.pais);
+      console.log("Genero: ", this.sexoMF);
+      console.log("Nivel: ", this.level);
+      console.log("Tema: ", document.getElementById("tema").value);
+
+      environment.datos.pais = this.pais;
+      environment.datos.genero = this.sexoMF;
+      environment.datos.nivel = this.level;
+      environment.datos.conocimiento = document.getElementById("tema").value;
+      this.$router.push('/opciones')
+      
     }
   }
 });
@@ -131,7 +159,6 @@ ion-input {
 }
 
 ion-button{
-  border: 2px solid #00A79D;
   border-radius: 20px;
   height: 45px;
   text-transform: inherit;

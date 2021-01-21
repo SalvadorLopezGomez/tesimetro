@@ -11,9 +11,11 @@
       </div>
       <div id="tipo-investigacion">
         <ion-item slot="primary">
-          <ion-select :interface-options="options" interface="popover" placeholder="Selecciona el tipo de investigación">
+          <ion-select :interface-options="options" id="tareas" interface="alert" placeholder="Selecciona el tipo de investigación">
             <ion-item id="background-select">
-              <ion-select-option :key="tarea" v-for="tarea of tipo_investigacion" :value="tarea.id">{{tarea.investigacion}}</ion-select-option>
+              <ion-select-option :key="tarea" v-for="tarea of tipo_investigacion" :value="tarea.investigacion">
+                {{tarea.investigacion}}
+              </ion-select-option>
             </ion-item>
           </ion-select>
         </ion-item>
@@ -32,15 +34,17 @@
         </p>
       </div>
       <div id="calcular_boton">
-        <ion-button id="forma" shape="round" color="warning" @click="$router.push('/resultado')">Calcular</ion-button>
+        <ion-button id="forma" shape="round" color="warning" @click="enviar()">Calcular</ion-button>
       </div>
     </ion-content>
   </ion-page>
 </template>
 
 <script>
+import { environment } from '@/services/data';
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/vue';
 import { defineComponent } from 'vue';
+import { db } from '../firebase';
 
 export default defineComponent({
   name: 'Tiempo',
@@ -51,40 +55,42 @@ export default defineComponent({
     IonTitle,
     IonToolbar
   },
-  beforeMount(){
-    console.log("pase");
-    for (let temas of this.themes){
-      temas.done = false
-      temas.msg = "No"
-      temas.color = 'medium'
-    }
-  },
   data(){
     return {
+      tareas: '',
+      porcentaje_done: '',
+      horas_faltantes: '',
+      datos_full: {
+      pais: 'MX',
+      genero: 'Masculino',
+      nivel: 'Pregrado - Licenciatura',
+      conocimiento: 'Inteligencia Artificial',
+      investigacion: 'Investigación téorica',
+      porcentaje: '',
+      horas: ''
+    },
+
       themes: [
-            { task: "Conformación del grupo", hours: "5",   done: false, msg: "No", color: 'medium' },
-            { task: "Resumen",                hours: "5",   done: false, msg: "No", color: 'medium' },
-            { task: "Introducción",           hours: "5",   done: false, msg: "No", color: 'medium' },
-            { task: "Problema",               hours: "15",  done: false, msg: "No", color: 'medium' },
-            { task: "Justificación",          hours: "7",   done: false, msg: "No", color: 'medium' },
-            { task: "Antecedentes",           hours: "10",  done: false, msg: "No", color: 'medium' },
-            { task: "Marco teórico",          hours: "20",  done: false, msg: "No", color: 'medium' },
-            { task: "Metodología",            hours: "25",  done: false, msg: "No", color: 'medium' },
-            { task: "Resultados",             hours: "15",  done: false, msg: "No", color: 'medium' },
-            { task: "Discusión",              hours: "8",   done: false, msg: "No", color: 'medium' },
-            { task: "Conclusiones",           hours: "10",  done: false, msg: "No", color: 'medium' },
-            { task: "Recomendaciones",        hours: "6",   done: false, msg: "No", color: 'medium' },
-            { task: "Referencias",            hours: "4",   done: false, msg: "No", color: 'medium' },
-            { task: "Formato con normas",     hours: "8",   done: false, msg: "No", color: 'medium' }
+            { task: "Conformación del grupo", hours: "2",  porcentaje: "2",  done: false, msg: "No", color: 'medium' },
+            { task: "Resumen",                hours: "3",  porcentaje: "2",  done: false, msg: "No", color: 'medium' },
+            { task: "Introducción",           hours: "4",  porcentaje: "4",  done: false, msg: "No", color: 'medium' },
+            { task: "Problema",               hours: "8",  porcentaje: "8",  done: false, msg: "No", color: 'medium' },
+            { task: "Justificación",          hours: "6",  porcentaje: "8",  done: false, msg: "No", color: 'medium' },
+            { task: "Antecedentes",           hours: "8",  porcentaje: "12", done: false, msg: "No", color: 'medium' },
+            { task: "Marco teórico",          hours: "8",  porcentaje: "12", done: false, msg: "No", color: 'medium' },
+            { task: "Metodología",            hours: "6",  porcentaje: "6",  done: false, msg: "No", color: 'medium' },
+            { task: "Resultados",             hours: "15", porcentaje: "14", done: false, msg: "No", color: 'medium' },
+            { task: "Discusión",              hours: "8",  porcentaje: "12", done: false, msg: "No", color: 'medium' },
+            { task: "Conclusiones",           hours: "2",  porcentaje: "6",  done: false, msg: "No", color: 'medium' },
+            { task: "Recomendaciones",        hours: "2",  porcentaje: "5",  done: false, msg: "No", color: 'medium' },
+            { task: "Referencias",            hours: "2",  porcentaje: "4",  done: false, msg: "No", color: 'medium' },
+            { task: "Formato con normas",     hours: "2",  porcentaje: "5",  done: false, msg: "No", color: 'medium' }
         ],
       
-      tipo_investigacion: [
-        {id: 1, investigacion: "Investigación téorica"},
-        {id: 2, investigacion: "Investigación empírica"},
-        {id: 3, investigacion: "Investigación aplicada"},
-      ]
+      tipo_investigacion: environment.investigaciones,
     }
-  },methods:{
+  },
+  methods:{
     cambiar(index){
       this.themes[index].done = !this.themes[index].done
       if(this.themes[index].done){
@@ -94,6 +100,57 @@ export default defineComponent({
         this.themes[index].msg = "No"
         this.themes[index].color = "medium"
       }
+    },
+    passData(){
+      console.log("Investigacion: ",document.getElementById("tareas").value);
+      
+      
+      //this.$router.push('/resultado')
+    },
+    calcular_horas(){
+      this.horas_faltantes = 0;
+      for (let i = 0; i < this.themes.length; i++) {
+        if(this.themes[i].done == false){
+          //console.log(this.themes[i].hours);
+          this.horas_faltantes = this.horas_faltantes + parseInt(this.themes[i].hours);
+        }
+      }
+      environment.datos.horas = this.horas_faltantes;
+      //console.log("Horas: ",this.horas_faltantes);
+    },
+    calcular_porcentaje(){
+      this.porcentaje_done = 0;
+      for (let i = 0; i < this.themes.length; i++) {
+        if(this.themes[i].done == true){
+          //console.log(this.themes[i].porcentaje);
+          this.porcentaje_done = this.porcentaje_done + parseInt(this.themes[i].porcentaje);
+        }
+      }
+      environment.datos.porcentaje = this.porcentaje_done;
+      //console.log("Porcentaje ",this.porcentaje_done);
+    },
+    enviar(){
+      environment.datos.investigacion = document.getElementById("tareas").value;
+      this.calcular_horas();
+      this.calcular_porcentaje();
+      console.log(environment.datos);
+
+     db.collection("entradas").add({
+        pais: environment.datos.pais,
+        genero: environment.datos.genero,
+        nivel: environment.datos.nivel,
+        conocimiento: environment.datos.conocimiento,
+        investigacion: environment.datos.investigacion,
+        porcentaje: environment.datos.porcentaje,
+        horas: environment.datos.horas
+      })
+      .then(function(docRef) {
+          console.log("Document written with ID: ", docRef.id);
+          this.$router.push('/resultado')
+      })
+      .catch(function(error) {
+          console.error("Error adding document: ", error);
+      });
     }
   }
 });
@@ -142,10 +199,10 @@ export default defineComponent({
   text-align: center;
   position: absolute;
   font-weight: bold;
+  text-transform: inherit;
   right: 0;
   height: 45px;
   border-radius: 20px;
-  border: 2px solid#00A79D;
   transform: translateY(-50%);
 }
 

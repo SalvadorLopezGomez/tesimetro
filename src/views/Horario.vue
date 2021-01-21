@@ -6,30 +6,18 @@
           <ion-title size="large">Blank</ion-title>
         </ion-toolbar>
       </ion-header>
-      <div id="text-question">
-        <ion-label><h1 id="letra">Destinación horaria</h1></ion-label>
-      </div>
-      <ion-label id="text-horas">Horas</ion-label>
       <div id="container">
-          <p id="lista" v-for="tema in themes" :key="tema">
-              <ion-label>
-                  <div id="label-text">
-                      <h3 id="letra_1">{{tema.task}}</h3>
-                  </div>
-                  <div>
-                      <h3 id="horas">{{tema.hours}}</h3>
-                  </div>
-              </ion-label>
-              <br>
-          </p>
-          <div id="boton">
-            <ion-button shape="round" color="warning" @click="$router.push('/nota')">Continuar</ion-button>
-          </div>
+        <div class="mb-3" >
+          <ion-label><h1 id="letra">Destinación horaria</h1></ion-label>
+        </div>
+        <div class="container-fluid text-end mb-3">Horas</div>
+        <div class="d-flex justify-content-between mb-1" v-for="tema in themes" :key="tema">
+          <ion-label class="fw-bold">{{tema.task}}</ion-label>
+          <ion-label class="fw-bold">{{tema.hours}}</ion-label>
+        </div>
+        <div class="container-fluid text-end mt-4">Total: {{horas_totales}} Hrs</div>
+        <div class="my-4"><ion-button shape="round" color="warning" @click="$router.push('/nota')">Continuar</ion-button></div>
       </div>
-      
-      <ion-label id="altura">Total</ion-label>
-      <ion-label  id="altura_1">{{horas_totales}}</ion-label>
-
     </ion-content>
   </ion-page>
 </template>
@@ -90,11 +78,26 @@ export default defineComponent({
   position: absolute;
   left: 0;
   right: 0;
-  top: 32%;
-  margin: 60px;
+  top: 50%;
+  padding: 20px 40px 20px 40px;
   transform: translateY(-50%);
 }
 
+#container strong {
+  font-size: 20px;
+  line-height: 26px;
+}
+
+#container p {
+  font-size: 16px;
+  line-height: 22px;
+  color: #8c8c8c;
+  margin: 0;
+}
+
+#container a {
+  text-decoration: none;
+}
 #lista {
     margin: 5px;
 }
@@ -215,7 +218,6 @@ ion-content.background{
 }
 
 ion-button{
-  border: 2px solid #00A79D;
   height: 45px;
   border-radius: 20px;
   text-transform: inherit;
