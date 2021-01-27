@@ -17,21 +17,21 @@
         <ion-item slot="primary">
           <ion-select :interface-options="options" v-model="pais" interface="alert" placeholder="Pais">
             <ion-item id="background-select">
-              <ion-select-option :key="pais" v-for="pais of paises" :value="pais.alpha2Code">{{pais.name}}</ion-select-option>
+              <ion-select-option :key="pais" v-for="pais of paises" :value="pais.name">{{pais.name}}</ion-select-option>
             </ion-item>
           </ion-select>
         </ion-item><br>
         <ion-item slot="primary">
           <ion-select :interface-options="options" v-model="sexoMF" interface="alert" placeholder="Género">
             <ion-item id="background-select">
-              <ion-select-option :key="sex" v-for="sex of genero" :value="sex.sexo">{{sex.sexo}}</ion-select-option>
+              <ion-select-option :key="sex" v-for="(sx,sex) in genero" :value="sx">{{sx}}</ion-select-option>
             </ion-item>
           </ion-select>
         </ion-item><br>
         <ion-item slot="primary">
           <ion-select :interface-options="options" v-model="level" interface="alert" placeholder="Nivel educativo">
             <ion-item id="background-select">
-              <ion-select-option :key="escolaridad" v-for="escolaridad of educacion" :value="escolaridad.nivel">{{escolaridad.nivel}}</ion-select-option>
+              <ion-select-option :key="escolaridad" v-for="(lvl,escolaridad) in levels" :value="escolaridad">{{lvl}}</ion-select-option>
             </ion-item>
           </ion-select>
         </ion-item><br>
@@ -48,7 +48,8 @@
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonSelect, IonSelectOption } from '@ionic/vue';
 import { defineComponent } from 'vue';
 import axios from 'axios';
-import { environment } from '../services/data';
+import { ServeData } from "../services/ServeData";
+const servedata = new ServeData();
 
 export default defineComponent({
   name: 'Home',
@@ -62,7 +63,9 @@ export default defineComponent({
     IonSelectOption
   },
   async beforeMount(){
-    await axios.get("https://restcountries.eu/rest/v2/lang/es").then(resp =>{ this.paises=resp.data })
+    await axios.get("https://restcountries.eu/rest/v2/lang/es").then(resp =>{ this.paises=resp.data }),
+    this.levels = servedata.getLevels(),
+    this.genero = servedata.getGenero()
   },
   data(){
     return {
@@ -70,38 +73,38 @@ export default defineComponent({
       sexoMF: '',
       level: '',
       tema: '',
-
+      levels: [],
+      genero: [],
       paises: [],
-      genero: [ {id: 1, sexo: "Masculino"}, {id: 2, sexo: "Femenino"} ],
-      educacion: [ 
-        {id: 1, nivel: "Investigación escolar" },
-        {id: 2, nivel: "Técnica - Tecnología" },
-        {id: 3, nivel: "Pregrado - Licenciatura" },
-        {id: 4, nivel: "Especialización" },
-        {id: 5, nivel: "Maestría" },
-        {id: 6, nivel: "Doctorado" },
-      ],
     }
   },
   methods: {
     passData() {
       console.log("Pais: ", this.pais);
       console.log("Genero: ", this.sexoMF);
-      console.log("Nivel: ", this.level);
+      console.log("Nivel: ", this.levels[this.level]);
       console.log("Tema: ", document.getElementById("tema").value);
-
-      environment.datos.pais = this.pais;
-      environment.datos.genero = this.sexoMF;
-      environment.datos.nivel = this.level;
-      environment.datos.conocimiento = document.getElementById("tema").value;
-      this.$router.push('/opciones')
-      
+      servedata.setInfo(this.pais, this.sexoMF, this.levels[this.level], document.getElementById("tema").value);
+      servedata.setLevel(this.level);
+      console.log(this.level);
+      this.$router.push('/opciones') ;
     }
   }
 });
 </script>
 
 <style scoped>
+body {
+    font-size: calc(1.525rem+3.3vw);
+    color: white;
+}
+
+@media (min-width: 1200px) {
+    body {
+        font-size: 4rem;
+    }
+}
+
 #container {
   text-align: left;
   margin: 40px;

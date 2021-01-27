@@ -8,6 +8,7 @@ import Nota from '../views/Nota.vue';
 import Condiciones from '../views/Condiciones.vue';
 import Firma from '../views/Firma.vue';
 import Publicidad from '../views/Publicidad.vue';
+import Herramientas from '../views/Herramientas.vue'
 
 const routes = [
   {
@@ -58,6 +59,11 @@ const routes = [
     path: '/publicidad',
     name: 'Publicidad',
     component: Publicidad
+  },
+  {
+    path: '/herramientas',
+    name: 'Herramientas',
+    component: Herramientas
   }
 ]
 

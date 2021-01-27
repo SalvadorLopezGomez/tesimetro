@@ -7,27 +7,10 @@
         </ion-toolbar>
       </ion-header>
       <div id="Resultado">
-        <ion-label><h1 id="letra_1">Condiciones y privacidad</h1></ion-label>
+        <ion-label><h1 id="letra_1">Herramientas</h1></ion-label>
       </div>
 
-      <div id="result">
-        <ion-label>
-          <h2 id="letra">
-            Esta aplicación fue creada por la empresa Impúlsate Consultoría®.
-          </h2>
-          <br>
-          <br>
-          <h2 id="letra">
-            Haciendo click puedes informarte sobre las 
-            <route-link url=""><a href="">condiciones de uso</a></route-link> y 
-            <route-link><a href="">política de privacidad</a></route-link>.
-          </h2>
-        </ion-label>
-      </div>
 
-      <div id="boton">
-        <ion-button shape="round" color="warning" @click="$router.push('/opciones')">Volver</ion-button>
-      </div>
     </ion-content>
   </ion-page>
 </template>
@@ -37,7 +20,7 @@ import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/vue
 import { defineComponent } from 'vue';
 
 export default defineComponent({
-  name: 'Resultado',
+  name: 'Herramientas',
   components: {
     IonContent,
     IonHeader,
@@ -47,9 +30,7 @@ export default defineComponent({
   },
   data(){
     return {
-      dataForm : {
-        pais:""
-      }
+      
     }
   }
 });
@@ -79,18 +60,23 @@ body {
 #result {
   text-align: center;
   position: absolute;
-  left: 5%;
-  right: 5%;
-  top: 30%;
+  left: 0;
+  right: 0;
+  top: 40%;
   margin: 40px;
   transform: translateY(-50%);
+}
+
+#image {
+  width: 200px;
+  margin: auto;
 }
 
 #boton {
   position: absolute;
   left: 30%;
   right: 30%;
-  top: 70%;
+  top: 80%;
   text-align: center;
   transform: translateY(-50%);
 }
@@ -106,11 +92,10 @@ body {
 
 #container {
   text-align: center;
-  
   position: absolute;
   left: 5%;
   right: 5%;
-  top: 50%;
+  top: 40%;
   transform: translateY(-50%);
 }
 

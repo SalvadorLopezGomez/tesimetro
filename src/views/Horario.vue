@@ -6,17 +6,25 @@
           <ion-title size="large">Blank</ion-title>
         </ion-toolbar>
       </ion-header>
-      <div id="container">
+      <div>
         <div class="mb-3" >
-          <ion-label><h1 id="letra">Destinación horaria</h1></ion-label>
+          <ion-label><h1 id="letra">¿cuántas horas te faltan?</h1></ion-label>
         </div>
-        <div class="container-fluid text-end mb-3">Horas</div>
-        <div class="d-flex justify-content-between mb-1" v-for="tema in themes" :key="tema">
-          <ion-label class="fw-bold">{{tema.task}}</ion-label>
-          <ion-label class="fw-bold">{{tema.hours}}</ion-label>
+        <div id="horas" class="d-flex justify-content-end">Horas</div>
+
+        <div id="tabla">
+          <div class="d-flex justify-content-between mb-1" :key="index" v-for="(a,index) in task">
+            <ion-label >{{task[index]}}</ion-label>
+            <ion-label >{{tiempo[index]}}</ion-label>
+          </div>
         </div>
-        <div class="container-fluid text-end mt-4">Total: {{horas_totales}} Hrs</div>
-        <div class="my-4"><ion-button shape="round" color="warning" @click="$router.push('/nota')">Continuar</ion-button></div>
+        <div id="total" >
+          <div class="d-flex justify-content-end">Total: {{horas_totales}} Hrs</div>
+        </div>
+        
+        <div id="altura">
+          <ion-button shape="round" color="warning" @click="$router.push('/nota')">Continuar</ion-button>
+        </div>
       </div>
     </ion-content>
   </ion-page>
@@ -25,6 +33,9 @@
 <script>
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonLabel } from '@ionic/vue';
 import { defineComponent } from 'vue';
+import { ServeData } from '../services/ServeData';
+
+const servedata = new ServeData();
 
 export default defineComponent({
   name: 'Tiempo',
@@ -38,41 +49,42 @@ export default defineComponent({
   },
   data(){
     return {
-        themes: [
-            { task: "Conformación del grupo", hours: "5",   done: false, msg: "No", color: 'medium' },
-            { task: "Resumen",                hours: "5",   pending: true },
-            { task: "Introducción",           hours: "5",   pending: true },
-            { task: "Problema",               hours: "15",  pending: true },
-            { task: "Justificación",          hours: "7",   pending: true },
-            { task: "Antecedentes",           hours: "10",  pending: true },
-            { task: "Marco teórico",          hours: "20",  pending: true },
-            { task: "Metodología",            hours: "25",  pending: true },
-            { task: "Resultados",             hours: "15",  pending: true },
-            { task: "Discusión",              hours: "8",   pending: true },
-            { task: "Conclusiones",           hours: "10",  pending: true },
-            { task: "Recomendaciones",        hours: "6",   pending: true },
-            { task: "Referencias",            hours: "4",   pending: true },
-            { task: "Formato con normas",     hours: "8",   pending: true }
-        ],
+        task: [],
+        tiempo: [],
         total: 138,
         horas_totales: 0,
     }
   },
+  beforeMount(){
+    this.task=servedata.getTask(),
+    this.tiempo=servedata.getTiempo()
+    this.horas_totales=servedata.getResults().hours;
+  },
   methods: {
-      calcular(){
-          this.horas_totales = 0;
-          for (let i = 0; i < this.themes.length; i++) {
-              console.log(this.themes[i].hours);
-              this.horas_totales = this.horas_totales + parseInt(this.themes[i].hours);
-          }
-          console.log(this.horas_totales);
-          document.getElementById("altura_1").innerHTML = this.horas_totales.toString();
-      }
   }
 });
 </script>
 
 <style scoped>
+
+body {
+    font-size: calc(1.525rem+3.3vw);
+    color: white;
+}
+
+@media (min-width: 1200px) {
+    body {
+        font-size: 4rem;
+    }
+}
+
+#tabla {
+  font-size: 18px;
+  margin: 60px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
 #container {
   text-align: center;
   position: absolute;
@@ -103,16 +115,12 @@ export default defineComponent({
 }
 
 #altura {
-    color: black;
-    font-weight: bold;
-    position: absolute;
-    left: 60%;
-    top: 67%;
+  text-align: center;
+  margin: 5px;
 }
 
 #altura_1 {
     color: black;
-    font-weight: bold;
     position: absolute;
     left: 78%;
     top: 67%;
@@ -120,7 +128,6 @@ export default defineComponent({
 
 #text-horas {
   color: black;
-  font-weight: bold;
   top: 11%;
   right: 17%;
   position: absolute;
@@ -134,13 +141,12 @@ export default defineComponent({
 }
 
 #horas {
-  color: black;
-  border-radius: 20%;
-  text-align: right;
-  position: absolute;
   font-weight: bold;
-  right: 0;
-  transform: translateY(-50%);
+  text-align: right;
+  margin: 20px;
+  margin-right: 60px;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 
 #boton {
@@ -180,20 +186,22 @@ ion-input {
 }
 
 #total {
-  left: 25%;
-  right: 0;
-  color: #00A79D;
+  text-align: right;
   font-weight: bold;
+  margin: 20px;
+  margin-right: 60px;
+  margin-bottom: 0px;
 }
 
 #letra {
+  text-align: center;
   color: #00A79D;
+  margin: 10px;
   font-weight: bold;
 }
 
 #letra_1 {
   text-align: left;
-  font-weight: bold;
   color: black;
 }
 

@@ -13,8 +13,8 @@
       <div id="result">
         <ion-label>
           <h2 id="letra_1">
-            Hasta el momento presentas un --% de avance en tu tesis. 
-            Estimamos que requieres -- horas de trabajo para terminarla.
+            Hasta el momento presentas un {{porcentaje}}% de avance en tu tesis. 
+            Estimamos que requieres {{horas}} horas de trabajo para terminarla.
           </h2>
         </ion-label>
       </div>
@@ -24,8 +24,7 @@
       <div id="advice">
         <ion-label>
           <h2 id="letra_1">
-            Una revisión a la coherencia estructural te vendría bien. De ella depende 
-            que los antecedentes y el marco teórico estén articulados con tu planteamiento inicial.
+            {{consejo}}
           </h2>
         </ion-label>
       </div>
@@ -40,6 +39,9 @@
 <script>
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/vue';
 import { defineComponent } from 'vue';
+import { ServeData } from '../services/ServeData';
+
+const servedata = new ServeData();
 
 export default defineComponent({
   name: 'Resultado',
@@ -52,66 +54,68 @@ export default defineComponent({
   },
   data(){
     return {
-      dataForm : {
-        pais:""
-      }
+      porcentaje: '',
+      horas: '',
+      consejo: ''
     }
-  }
+  },beforeMount(){
+    
+    this.porcentaje = servedata.getResults().parcent;
+    this.horas = servedata.getResults().hours;
+    this.consejo = servedata.getResults().message;
+    console.log(this.porcentaje, this.horas, this.consejo)
+  },
 });
 </script>
 
 <style scoped>
 
+body {
+    font-size: calc(1.525rem+3.3vw);
+    color: white;
+}
+
+@media (min-width: 1200px) {
+    body {
+        font-size: 4rem;
+    }
+}
+
 #Resultado {
   text-align: center;
-  position: absolute;
-  left: 5%;
-  right: 5%;
-  top: 10%;
-  transform: translateY(-50%);
+  margin: 30px;
 }
 
 #Consejo {
   text-align: center;
-  position: absolute;
-  left: 5%;
-  right: 5%;
-  top: 35%;
-  transform: translateY(-50%);
+  margin: 60px;
+  margin-top: 0px;
+  margin-bottom: 30px;
 }
 
 #result {
-  text-align: center;
-  position: absolute;
-  left: 5%;
-  right: 5%;
-  top: 15%;
-  margin: 40px;
-  transform: translateY(-50%);
+  text-align: justify;
+  margin: 60px;
+  margin-top: 0px;
+  margin-bottom: 30px;
 }
 
 #advice {
-  text-align: center;
-  position: absolute;
-  left: 5%;
-  right: 5%;
-  top: 42%;
-  margin: 40px;
-  transform: translateY(-50%);
+  text-align: justify;
+  margin: 60px;
+  margin-top: 0px;
+  margin-bottom: 30px;
 }
 
 #boton {
-  position: absolute;
-  left: 5%;
-  right: 5%;
   text-align: center;
-  top: 70%;
-  transform: translateY(-50%);
+  margin: 40px;
+  margin-bottom: 0px;
 }
 
 #letra {
-  font-weight: bold;
   color: #00A79D;
+  font-weight: bold;
 }
 
 #letra_1 {

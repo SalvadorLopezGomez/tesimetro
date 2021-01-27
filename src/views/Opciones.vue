@@ -8,13 +8,10 @@
       </ion-header>
     
       <div id="container">
-        <ion-button shape="round" color="warning" @click="$router.push('/tiempo')">Tesímetro</ion-button>
-        <br>
-        <ion-button shape="round" color="warning" @click="$router.push('/condiciones')">Condiciones y privacidad</ion-button>
-        <br>
-        <ion-button shape="round" color="warning" @click="$router.push('/firma')">Información de la app</ion-button>
-        <br>
-        <ion-button shape="round" color="warning" @click="$router.push('/publicidad')">Publicidad</ion-button>
+        <ion-button shape="round" color="warning" @click="$router.push('/tiempo')">Tesímetro</ion-button><br>
+        <ion-button shape="round" color="warning" @click="$router.push('/firma')">Legal</ion-button><br>
+        <ion-button shape="round" color="warning" @click="$router.push('/publicidad')">Publicidad</ion-button><br>
+        <ion-button shape="round" color="warning" @click="$router.push('/herramientas')">Herramientas de investigacion</ion-button>
       </div>
     </ion-content>
   </ion-page>
@@ -37,6 +34,18 @@ export default defineComponent({
 </script>
 
 <style scoped>
+
+body {
+    font-size: calc(1.525rem+3.3vw);
+    color: white;
+}
+
+@media (min-width: 1200px) {
+    body {
+        font-size: 4rem;
+    }
+}
+
 #container {
   text-align: center;
   position: absolute;
@@ -75,6 +84,6 @@ ion-button{
   border-radius: 20px;
   height: 45px;
   text-transform: inherit;
-  width : 210px;
+  width : 250px;
 }
 </style>

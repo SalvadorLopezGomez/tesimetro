@@ -47,6 +47,16 @@ export default defineComponent({
 </script>
 
 <style scoped>
+body {
+    font-size: calc(1.525rem+3.3vw);
+    color: white;
+}
+
+@media (min-width: 1200px) {
+    body {
+        font-size: 4rem;
+    }
+}
 
 #Resultado {
   text-align: center;
@@ -81,8 +91,8 @@ export default defineComponent({
 }
 
 #letra_1 {
+  font-weight: bold;
     color: #00A79D;
-    font-weight: bold;
 }
 
 #container {
@@ -124,7 +134,6 @@ ion-content.background{
 }
 
 ion-button{
-  border: 2px solid #00A79D;
   border-radius: 20px;
   height: 45px;
   text-transform: inherit;

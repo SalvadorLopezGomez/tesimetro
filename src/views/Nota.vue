@@ -10,7 +10,7 @@
         <ion-label><h1 id="letra_1">Nota</h1></ion-label>
       </div>
 
-      <div id="result">
+      <div id="result" class="d-flex justify-content-between">
         <ion-label>
           <h3 id="letra">
             Las horas en las que estimamos puedes concluir tu tesis proviene de nuestra experiencia 
@@ -20,6 +20,7 @@
             involucra factores internos y externos, los cuales pueden hacer que el proceso se delimite o amplíe. 
             Aun así, te compartimos algunos elementos que resultan importantes para lograrlo:
           </h3>
+          <br>
           <ul id="letra">
               <li><h3>Motivación por el tema</h3></li>
               <li><h3>Claridad y coherencia en la estructurade los planteamientos que sustentantu propuesta</h3></li>
@@ -61,24 +62,29 @@ export default defineComponent({
 </script>
 
 <style scoped>
+body {
+    font-size: calc(1.525rem+3.3vw);
+    color: white;
+}
+
+@media (min-width: 1200px) {
+    body {
+        font-size: 4rem;
+    }
+}
 
 #Resultado {
   text-align: center;
-  position: absolute;
+  margin: 20px;
   left: 5%;
   right: 5%;
   top: 5%;
-  transform: translateY(-50%);
 }
 
 #result {
   text-align: justify;
-  position: absolute;
-  left: 5%;
-  right: 5%;
-  top: 35%;
-  margin: 40px;
-  transform: translateY(-50%);
+  margin: 60px;
+  margin-top: 0px;
 }
 
 #boton {
@@ -92,12 +98,11 @@ export default defineComponent({
 
 #letra {
   color: black;
-  font-weight: bold;
 }
 
 #letra_1 {
+  font-weight: bold;
     color: #00A79D;
-    font-weight: bold;
 }
 
 #container {
@@ -136,7 +141,6 @@ ion-content.background{
 }
 
 ion-button{
-  border: 2px solid #00A79D;
   border-radius: 20px;
   height: 45px;
   text-transform: inherit;

@@ -11,15 +11,21 @@
       </div>
       <div id="container">
         <div id="result">
-        <div>
-          <ion-img id="image" src="../assets/logo.png"></ion-img>
-        <br>
-        <ion-label>
-          <h1 id="letra">
-            App creada por Impúlsate Consultoría®  2021.
-          </h1>
-        </ion-label>
-        </div>
+          <div>
+            <ion-img id="image" src="../assets/logo.png"></ion-img>
+          </div>
+          <ion-label>
+            <h1 id="letra">
+              App creada por Impúlsate Consultoría®  2021.
+            </h1>
+          </ion-label>
+          <ion-label>
+            <h2 id="letra">
+              Haciendo click puedes informarte sobre las 
+              <route-link url=""><a href="">condiciones de uso</a></route-link> y 
+              <route-link><a href="">política de privacidad</a></route-link>.
+            </h2>
+          </ion-label>
        </div>
       </div>
       <div id="boton">
@@ -51,56 +57,49 @@ export default defineComponent({
 </script>
 
 <style scoped>
+body {
+    font-size: calc(1.525rem+3.3vw);
+    color: white;
+}
+
+@media (min-width: 1200px) {
+    body {
+        font-size: 4rem;
+    }
+}
 
 #Resultado {
   text-align: center;
-  position: absolute;
-  left: 5%;
-  right: 5%;
-  top: 10%;
-  transform: translateY(-50%);
+  margin: 20px;
 }
 
 #result {
   text-align: center;
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 40%;
   margin: 40px;
-  transform: translateY(-50%);
+  margin-top: 0px;
 }
 
 #image {
   width: 200px;
-  margin: auto;
+  margin: 0 auto;
 }
 
 #boton {
-  position: absolute;
-  left: 30%;
-  right: 30%;
-  top: 80%;
   text-align: center;
-  transform: translateY(-50%);
+  margin: 20px;
 }
 
 #letra {
-  color: black;
+  margin: 10px;
 }
 
 #letra_1 {
+  font-weight: bold;
     color: #00A79D;
-    font-weight: bold;
 }
 
 #container {
   text-align: center;
-  position: absolute;
-  left: 5%;
-  right: 5%;
-  top: 40%;
-  transform: translateY(-50%);
 }
 
 #container strong {
@@ -132,7 +131,6 @@ ion-content.background{
 }
 
 ion-button{
-  border: 2px solid #00A79D;
   border-radius: 20px;
   height: 45px;
   text-transform: inherit;
